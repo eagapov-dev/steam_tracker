@@ -1,6 +1,6 @@
 # Steam Price Tracker
 
-SaaS-приложение для отслеживания цен на игры в Steam. Пользователи добавляют игры в watchlist, получают уведомления о снижении цен через email и Telegram. Монетизация через 4 уровня подписок (LemonSqueezy).
+A SaaS application for tracking Steam game prices. Users add games to their watchlist and receive price drop notifications via email and Telegram. Monetized through 4 subscription tiers powered by LemonSqueezy.
 
 ## Tech Stack
 
