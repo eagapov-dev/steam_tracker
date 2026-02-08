@@ -8,7 +8,9 @@ use Livewire\Component;
 class GameSearch extends Component
 {
     public string $query = '';
+
     public array $results = [];
+
     public bool $showResults = false;
 
     public function updatedQuery(): void
@@ -16,6 +18,7 @@ class GameSearch extends Component
         if (strlen($this->query) < 2) {
             $this->results = [];
             $this->showResults = false;
+
             return;
         }
 

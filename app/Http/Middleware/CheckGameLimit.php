@@ -12,7 +12,7 @@ class CheckGameLimit
     {
         $user = $request->user();
 
-        if ($user && !$user->canAddGame()) {
+        if ($user && ! $user->canAddGame()) {
             if ($request->wantsJson()) {
                 return response()->json([
                     'error' => 'Game limit reached. Upgrade your plan to track more games.',

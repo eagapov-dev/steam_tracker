@@ -4,7 +4,6 @@ namespace App\Console\Commands;
 
 use App\Jobs\CheckGamePrices;
 use App\Models\Game;
-use App\Models\User;
 use Illuminate\Console\Command;
 
 class CheckPricesForPlan extends Command
@@ -17,8 +16,9 @@ class CheckPricesForPlan extends Command
     {
         $plan = $this->argument('plan');
 
-        if (!in_array($plan, ['free', 'starter', 'pro', 'enterprise'])) {
+        if (! in_array($plan, ['free', 'starter', 'pro', 'enterprise'])) {
             $this->error('Invalid plan. Use: free, starter, pro, enterprise');
+
             return;
         }
 
@@ -30,6 +30,7 @@ class CheckPricesForPlan extends Command
 
         if (empty($gameIds)) {
             $this->info("No games to check for plan: {$plan}");
+
             return;
         }
 
@@ -40,6 +41,6 @@ class CheckPricesForPlan extends Command
             CheckGamePrices::dispatch($batch)->delay(now()->addSeconds($index * 20));
         }
 
-        $this->info("Dispatched price checks for " . count($gameIds) . " games on plan: {$plan}");
+        $this->info('Dispatched price checks for '.count($gameIds)." games on plan: {$plan}");
     }
 }

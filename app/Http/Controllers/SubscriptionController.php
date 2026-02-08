@@ -10,6 +10,7 @@ class SubscriptionController extends Controller
     public function pricing()
     {
         $plans = config('plans');
+
         return view('pricing', compact('plans'));
     }
 
@@ -17,7 +18,7 @@ class SubscriptionController extends Controller
     {
         $variantId = config("lemonsqueezy.variant_ids.{$plan}");
 
-        if (!$variantId) {
+        if (! $variantId) {
             abort(404, 'Invalid plan.');
         }
 
@@ -53,7 +54,7 @@ class SubscriptionController extends Controller
                 ],
             ]);
 
-        if (!$response->successful()) {
+        if (! $response->successful()) {
             return back()->with('error', 'Unable to create checkout. Please try again.');
         }
 
@@ -66,7 +67,7 @@ class SubscriptionController extends Controller
     {
         $user = $request->user();
 
-        if (!$user->lemon_squeezy_customer_id) {
+        if (! $user->lemon_squeezy_customer_id) {
             return redirect()->route('pricing')->with('info', 'No active subscription found.');
         }
 

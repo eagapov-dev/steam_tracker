@@ -13,7 +13,7 @@ class WebhookController extends Controller
         $secret = config('lemonsqueezy.webhook_secret');
         $signature = $request->header('X-Signature');
 
-        if (!$signature || !$this->verifySignature($request->getContent(), $secret, $signature)) {
+        if (! $signature || ! $this->verifySignature($request->getContent(), $secret, $signature)) {
             abort(403, 'Invalid signature.');
         }
 
@@ -22,14 +22,16 @@ class WebhookController extends Controller
         $customData = $payload['meta']['custom_data'] ?? [];
         $userId = $customData['user_id'] ?? null;
 
-        if (!$userId) {
+        if (! $userId) {
             Log::warning('LemonSqueezy webhook: missing user_id', $payload);
+
             return response()->json(['message' => 'OK']);
         }
 
         $user = User::find($userId);
-        if (!$user) {
+        if (! $user) {
             Log::warning('LemonSqueezy webhook: user not found', ['user_id' => $userId]);
+
             return response()->json(['message' => 'OK']);
         }
 
@@ -47,6 +49,7 @@ class WebhookController extends Controller
     private function verifySignature(string $payload, string $secret, string $signature): bool
     {
         $computedSignature = hash_hmac('sha256', $payload, $secret);
+
         return hash_equals($computedSignature, $signature);
     }
 

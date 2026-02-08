@@ -12,7 +12,7 @@ class EnsureSubscribed
     {
         $user = $request->user();
 
-        if (!$user || $user->plan === 'free') {
+        if (! $user || $user->plan === 'free') {
             if ($request->wantsJson()) {
                 return response()->json(['error' => 'Subscription required.'], 403);
             }

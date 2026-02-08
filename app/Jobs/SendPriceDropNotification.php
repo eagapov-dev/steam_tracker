@@ -60,10 +60,10 @@ class SendPriceDropNotification implements ShouldQueue
         if ($planConfig['telegram_notifications'] && $this->user->telegram_chat_id) {
             try {
                 $message = "🎮 *Price Drop Alert!*\n\n"
-                    . "*{$this->game->name}*\n"
-                    . "~~\${$this->oldPrice}~~ → *\${$this->newPrice}*\n"
-                    . "Discount: *{$this->discountPercent}%* off\n\n"
-                    . "[View on Steam](https://store.steampowered.com/app/{$this->game->steam_app_id})";
+                    ."*{$this->game->name}*\n"
+                    ."~~\${$this->oldPrice}~~ → *\${$this->newPrice}*\n"
+                    ."Discount: *{$this->discountPercent}%* off\n\n"
+                    ."[View on Steam](https://store.steampowered.com/app/{$this->game->steam_app_id})";
 
                 $telegram->sendMessage($this->user->telegram_chat_id, $message);
 

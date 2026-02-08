@@ -29,7 +29,7 @@ class CheckGamePrices implements ShouldQueue
             try {
                 $priceData = $steamApi->getAppPrice($game->steam_app_id);
 
-                if (!$priceData) {
+                if (! $priceData) {
                     continue;
                 }
 

@@ -9,9 +9,7 @@ use Illuminate\Http\Request;
 
 class WatchlistController extends Controller
 {
-    public function __construct(private SteamApiService $steamApi)
-    {
-    }
+    public function __construct(private SteamApiService $steamApi) {}
 
     public function index(Request $request)
     {
@@ -28,18 +26,19 @@ class WatchlistController extends Controller
     {
         $user = $request->user();
 
-        if (!$user->canAddGame()) {
+        if (! $user->canAddGame()) {
             $limit = $user->gameLimit();
+
             return back()->with('error', "You've reached your limit of {$limit} games. Upgrade your plan to track more.");
         }
 
         $game = Game::where('steam_app_id', $steamAppId)->first();
 
-        if (!$game) {
+        if (! $game) {
             $game = $this->steamApi->syncGameData($steamAppId);
         }
 
-        if (!$game) {
+        if (! $game) {
             return back()->with('error', 'Game not found on Steam.');
         }
 

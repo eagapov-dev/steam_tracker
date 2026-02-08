@@ -18,7 +18,7 @@ class SteamApiService
 
     public function searchGames(string $query): array
     {
-        $cacheKey = 'steam_search_' . md5($query);
+        $cacheKey = 'steam_search_'.md5($query);
 
         return Cache::remember($cacheKey, config('steam.cache_search_ttl'), function () use ($query) {
             try {
@@ -28,7 +28,7 @@ class SteamApiService
                     'cc' => 'us',
                 ]);
 
-                if (!$response->successful()) {
+                if (! $response->successful()) {
                     return [];
                 }
 
@@ -45,6 +45,7 @@ class SteamApiService
                 })->toArray();
             } catch (\Exception $e) {
                 Log::error('Steam search failed', ['error' => $e->getMessage(), 'query' => $query]);
+
                 return [];
             }
         });
@@ -61,13 +62,13 @@ class SteamApiService
                     'cc' => 'us',
                 ]);
 
-                if (!$response->successful()) {
+                if (! $response->successful()) {
                     return null;
                 }
 
                 $data = $response->json();
 
-                if (!isset($data[$steamAppId]['success']) || !$data[$steamAppId]['success']) {
+                if (! isset($data[$steamAppId]['success']) || ! $data[$steamAppId]['success']) {
                     return null;
                 }
 
@@ -90,6 +91,7 @@ class SteamApiService
                 ];
             } catch (\Exception $e) {
                 Log::error('Steam app details failed', ['error' => $e->getMessage(), 'app_id' => $steamAppId]);
+
                 return null;
             }
         });
@@ -99,7 +101,7 @@ class SteamApiService
     {
         $details = $this->getAppDetails($steamAppId);
 
-        if (!$details) {
+        if (! $details) {
             return null;
         }
 
@@ -114,7 +116,7 @@ class SteamApiService
     {
         $details = $this->getAppDetails($steamAppId);
 
-        if (!$details) {
+        if (! $details) {
             return null;
         }
 

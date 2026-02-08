@@ -49,7 +49,7 @@ class DatabaseSeeder extends Seeder
 
             // Generate price history for the last 30 days
             $basePrice = $gameData['is_free'] ? 0 : ($gameData['current_price'] / (1 - $gameData['current_discount_percent'] / 100));
-            if ($gameData['current_discount_percent'] == 0 && !$gameData['is_free']) {
+            if ($gameData['current_discount_percent'] == 0 && ! $gameData['is_free']) {
                 $basePrice = $gameData['current_price'];
             }
 
@@ -58,7 +58,7 @@ class DatabaseSeeder extends Seeder
                 // Simulate a sale period
                 if ($day <= 5 && $gameData['current_discount_percent'] > 0) {
                     $discount = $gameData['current_discount_percent'];
-                } elseif ($day >= 15 && $day <= 18 && !$gameData['is_free']) {
+                } elseif ($day >= 15 && $day <= 18 && ! $gameData['is_free']) {
                     $discount = rand(10, 30);
                 }
 

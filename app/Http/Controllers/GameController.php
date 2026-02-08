@@ -9,9 +9,7 @@ use Illuminate\Http\Request;
 
 class GameController extends Controller
 {
-    public function __construct(private SteamApiService $steamApi)
-    {
-    }
+    public function __construct(private SteamApiService $steamApi) {}
 
     public function search(Request $request)
     {
@@ -33,11 +31,11 @@ class GameController extends Controller
     {
         $game = Game::where('steam_app_id', $steamAppId)->first();
 
-        if (!$game) {
+        if (! $game) {
             $game = $this->steamApi->syncGameData($steamAppId);
         }
 
-        if (!$game) {
+        if (! $game) {
             abort(404, 'Game not found on Steam.');
         }
 
